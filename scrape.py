@@ -87,7 +87,7 @@ all_checkbox.click()
 scroll_through_names(driver)
 
 # grab all names list from pickle file
-with open('./utils/all_names.pkl', 'rb') as inp:
+with open('./all_names.pkl', 'rb') as inp:
     all_names = pickle.load(inp)
 
 
