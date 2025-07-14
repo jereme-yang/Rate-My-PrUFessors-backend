@@ -14,6 +14,7 @@ def convert_name(name):
     # Rearrange the parts and join them with a space
     converted_name = f"{parts[1]} {parts[0]}"
     return converted_name
+
 def main():
     # get the URL to the tableau page from the iframe found on https://gatorevals.aa.ufl.edu/public-results/
     tableau_url = get_tableau_url()
