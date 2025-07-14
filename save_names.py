@@ -27,3 +27,6 @@ def main():
     all_names = [element.text for element in driver.find_elements(By.CLASS_NAME, "FIText")][2:]
 
     save_names(all_names, 'all_names.pkl')
+
+    if __name__ == "__main__":
+        main()
