@@ -1,5 +1,7 @@
+import json
 import pickle
 import time
+from collections import defaultdict
 from selenium import webdriver
 from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.common.by import By
@@ -16,6 +18,7 @@ def convert_name(name):
     return converted_name
 
 def main():
+    data = defaultdict(list)
     # get the URL to the tableau page from the iframe found on https://gatorevals.aa.ufl.edu/public-results/
     tableau_url = get_tableau_url()
 
@@ -95,7 +98,6 @@ def main():
                 time.sleep(0.5)
 
                 # parse prof data
-                data = ["\""+convert_name(all_names[i])+"\""]
                 num_data_points = 6
                 for j in range(num_data_points):
                     datapoint = driver.find_element(By.XPATH, '//span[@style="font-family:\'Tableau Book\';font-size:13px;color:#333333;font-weight:bold;font-style:normal;text-decoration:none;"]').text
@@ -111,16 +113,10 @@ def main():
                             .perform()
 
                 # append the average for this version
-                data.append(str(round(sum([float(e) for e in data[1:]])/num_data_points, 2)))
+                data[all_names[i]].append(str(round(sum([float(e) for e in data[1:]])/num_data_points, 2)))
                 
                 time.sleep(0.5)
-                print(f"{data}")
-
-                # append to csv fjle
-                with open("gator_evals_data.csv", 'a') as f_object:
-                    f_object.write("\n" + ",".join(data))
-                    f_object.close()
-
+                print(f"{data[all_names[i]]}")
 
                 # re open dropdown for instructor names
                 names_dropdown = driver.find_element(By.ID, "tabZoneId12")
@@ -178,6 +174,10 @@ def main():
         if broke_counter == 3:
             broke_counter = 0
             continue
+    
+    # save the data to json file
+    with open("data.json", "w") as f:
+        json.dump(data, f, indent=4)
 
 
 if __name__ == "__main__":
