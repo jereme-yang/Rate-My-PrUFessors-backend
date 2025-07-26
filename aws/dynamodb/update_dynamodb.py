@@ -1,8 +1,11 @@
-import boto3
+import os
 import json
+import boto3
 
+# Construct path to /scrapers_output relative to script location
+data_dir = os.path.join(os.path.dirname(__file__), "..", "scrapers_output")
 # Load your JSON file
-with open("data/data.json", "r") as f:
+with open(os.path.join(data_dir, "data.json"), "r") as f:
     data = json.load(f)
 
 # Connect to DynamoDB
