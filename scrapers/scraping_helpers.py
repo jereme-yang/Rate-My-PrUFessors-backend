@@ -1,9 +1,13 @@
+import time
 from selenium import webdriver
 from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.common.by import By
-import time
 
 def scroll_through_names(driver, n = 28):
+    '''scroll through the names in the dropdown
+    driver: selenium webdriver
+    n: number of times to scroll down
+    '''
     time.sleep(0.5)
     for _ in range(n):
         ActionChains(driver)\
@@ -21,9 +25,9 @@ def get_tableau_url():
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--ignore-certificate-errors-spki-list')
     chrome_options.add_argument("--enable-javascript")
-    chrome_options.add_experimental_option("detach", True) 
+    chrome_options.add_experimental_option("detach", True)
     chrome_options.add_argument("--start-maximized")
-    chrome_options.add_argument("--headless=new") # run without opening a browser - comment this to debug
+    chrome_options.add_argument("--headless=new") # run without opening a browser
 
     # initialize driver
     driver = webdriver.Chrome(options=chrome_options)
@@ -44,9 +48,9 @@ def initialize_webdriver(tableau_url):
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--ignore-certificate-errors-spki-list')
     chrome_options.add_argument("--enable-javascript")
-    chrome_options.add_experimental_option("detach", True) 
+    chrome_options.add_experimental_option("detach", True)
     chrome_options.add_argument("--start-maximized")
-    chrome_options.add_argument("--headless=new") # run without opening a browser - comment this to debug
+    chrome_options.add_argument("--headless=new") # run without opening a browser
 
     # initialize driver
     driver = webdriver.Chrome(options=chrome_options)
@@ -56,6 +60,5 @@ def initialize_webdriver(tableau_url):
     driver.implicitly_wait(5)
 
     # wait for website to load before continuing
-    time.sleep(5) 
+    time.sleep(5)
     return driver
-

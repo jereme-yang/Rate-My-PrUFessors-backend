@@ -2,7 +2,7 @@ import boto3
 import json
 
 # Load your JSON file
-with open("data.json", "r") as f:
+with open("data/data.json", "r") as f:
     data = json.load(f)
 
 # Connect to DynamoDB
