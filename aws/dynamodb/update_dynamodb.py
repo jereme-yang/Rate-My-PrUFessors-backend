@@ -7,7 +7,7 @@ with open("data.json", "r") as f:
 
 # Connect to DynamoDB
 dynamodb = boto3.resource("dynamodb")
-table = dynamodb.Table("MyTable")
+table = dynamodb.Table("rmp-gatorevals-data")
 
 # Insert each item
 for name, digits in data.items():
