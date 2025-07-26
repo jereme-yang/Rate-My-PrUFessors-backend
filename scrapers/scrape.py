@@ -35,15 +35,13 @@ def main():
 
     scroll_through_names(driver)
 
-    # grab all names list from pickle file
-    with open('./all_names.pkl', 'rb') as inp:
-        all_names = pickle.load(inp)
-
+    # grab all names (str) for finding the tags (title="name")
+    for element in driver.find_elements(By.CLASS_NAME, "FIText"):
+        data[element.text]
 
     broke_counter, start_index = 0, 0
     # go through all profs, query the data
-    for i in range(start_index, len(all_names)):
-
+    for i in range(start_index, data.keys()):
         # while Loop to try fetching data for the same prof 
         # 3 times because selenium/overlapping HTMLObject issues can occur
         while True:
