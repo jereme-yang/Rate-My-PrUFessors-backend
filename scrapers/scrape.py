@@ -39,9 +39,9 @@ def main():
     for element in driver.find_elements(By.CLASS_NAME, "FIText"):
         data[element.text]
 
-    broke_counter, start_index = 0, 0
+    broke_counter = 0
     # go through all profs, query the data
-    for i in range(start_index, data.keys()):
+    for i, name in enumerate(data.keys()):
         # while Loop to try fetching data for the same prof 
         # 3 times because selenium/overlapping HTMLObject issues can occur
         while True:
@@ -55,7 +55,7 @@ def main():
 
                 # get the checkbox for the associated name
                 time.sleep(5)
-                checkbox = driver.find_element(By.XPATH, f'//a[contains(text(), "{all_names[i]}")]/preceding-sibling::input')
+                checkbox = driver.find_element(By.XPATH, f'//a[contains(text(), "{name}")]/preceding-sibling::input')
                 time.sleep(5)
 
                 # click the checkbox (enable)
@@ -111,10 +111,10 @@ def main():
                             .perform()
 
                 # append the average for this version
-                data[all_names[i]].append(str(round(sum([float(e) for e in data[1:]])/num_data_points, 2)))
+                data[name].append(str(round(sum([float(e) for e in data[1:]])/num_data_points, 2)))
                 
                 time.sleep(0.5)
-                print(f"{data[all_names[i]]}")
+                print(f"{data[name]}")
 
                 # re open dropdown for instructor names
                 names_dropdown = driver.find_element(By.ID, "tabZoneId12")
@@ -164,7 +164,7 @@ def main():
                 if broke_counter == 3:
                     print("writing to broke.txt ...")
                     with open("broke.txt", 'a') as f_object:
-                        f_object.write(f"{i}, {all_names[i]}\n")
+                        f_object.write(f"{i}, {name}\n")
                         f_object.close()
                     break
 
