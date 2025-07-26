@@ -2,10 +2,9 @@ import json
 import pickle
 import time
 from collections import defaultdict
-from selenium import webdriver
 from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.common.by import By
-from utils.scraping_helpers import get_tableau_url, initialize_webdriver, scroll_through_names
+from scrapers.scraping_helpers import get_tableau_url, initialize_webdriver, scroll_through_names
 
 def convert_name(name):
     '''convert name from "last_name, first_name" to 
@@ -174,7 +173,7 @@ def main():
             continue
     
     # save the data to json file
-    with open("data.json", "w") as f:
+    with open("data/data.json", "w") as f:
         json.dump(data, f, indent=4)
 
 
